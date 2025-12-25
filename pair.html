@@ -2,19 +2,22 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IZUMI LITE • LIQUID GLASS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>IZUMI LITE • PAIR WEB</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
+html, body {
+  height: 100%;
+}
+
 body {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
   font-family: 'Montserrat', sans-serif;
   overflow: hidden;
   position: relative;
@@ -22,12 +25,10 @@ body {
   transition: background 1s ease-in-out;
 }
 
-/* Background image container */
 body.bg-loaded {
   background: url('https://files.catbox.moe/fvr809.jpg') no-repeat center center/cover;
 }
 
-/* Pink overlay for theme */
 body::after {
   content: '';
   position: absolute;
@@ -36,22 +37,22 @@ body::after {
   pointer-events: none;
 }
 
-/* Container */
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
   z-index: 2;
-  width: 100%;
+  width: 95%;
   max-width: 400px;
-  padding: 20px;
+  padding: 10px;
 }
 
-/* Liquid Glass Box */
 .box {
   width: 100%;
-  height: 380px;
-  padding: 25px;
+  max-width: 400px;
+  height: auto;
+  min-height: 450px;
+  padding: 20px;
   position: relative;
   text-align: center;
   background: rgba(255,182,193,0.15);
@@ -62,6 +63,9 @@ body::after {
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   overflow: hidden;
   z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .glass-reflection {
@@ -82,9 +86,9 @@ body::after {
 
 #text { color: #fff; position: relative; z-index: 5; display: flex; flex-direction: column; }
 
-.centered-text { color: #fff; margin-bottom: 20px; font-weight: 600; font-size: 1.4rem; text-shadow: 0 2px 6px rgba(255,105,180,0.6); }
+.centered-text { color: #fff; margin-bottom: 15px; font-weight: 600; font-size: 1.2rem; text-shadow: 0 2px 6px rgba(255,105,180,0.6); }
 
-#text h6 { margin: 15px 0 25px 0; font-weight: 400; font-size: 0.95rem; opacity: 0.9; color: #ff69b4; }
+#text h6 { margin: 10px 0 15px 0; font-weight: 400; font-size: 0.9rem; opacity: 0.9; color: #ff69b4; }
 
 .input-container {
   display: flex;
@@ -103,12 +107,12 @@ body::after {
   border-radius: 10px 0 0 10px;
   background: rgba(0,0,0,0.3);
   width: 100%;
-  flex-basis: 75%;
-  padding: 15px;
+  flex-basis: 70%;
+  padding: 12px;
   border: none;
   border-left: 2px solid transparent;
   color: #fff;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   transition: all 0.3s ease;
 }
 
@@ -117,8 +121,8 @@ body::after {
 .input-container input:focus { border-left: 2px solid #ff69b4; outline: none; background: rgba(0,0,0,0.4); }
 
 .input-container button {
-  flex-basis: 25%;
-  padding: 15px;
+  flex-basis: 30%;
+  padding: 12px;
   background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
   font-weight: 600;
   letter-spacing: 0.5px;
@@ -142,35 +146,35 @@ body::after {
 .fa-spinner { color: #ff69b4; font-size: 1.5rem; animation: spin 1.5s linear infinite; text-shadow: 0 0 10px #ff1493; }
 
 #pair {
-  margin-top: 20px;
+  margin-top: 15px;
   min-height: 50px;
+  word-break: break-word;
 }
 
 #copy {
   display: inline-block;
-  padding: 15px 25px;
+  padding: 12px 20px;
   background: rgba(255,182,193,0.15);
   backdrop-filter: blur(10px);
   border-radius: 12px;
   border: 1px solid rgba(255,182,193,0.3);
   color: #fff;
   font-weight: 600;
-  font-size: 1.1rem;
+  font-size: 1rem;
   cursor: pointer;
   text-align: center;
-  min-width: 200px;
+  min-width: 150px;
   transition: all 0.3s ease;
 }
 
 #copy span { color: #ff1493; font-weight: 700; text-shadow: 0 0 10px #ff69b4; }
 
-/* Footer Styles */
 .footer {
-  margin-top: 25px;
+  margin-top: 15px;
   text-align: center;
   color: rgba(255, 255, 255, 0.7);
-  font-size: 0.75rem;
-  padding: 10px 15px;
+  font-size: 0.7rem;
+  padding: 8px 10px;
   background: rgba(255, 182, 193, 0.1);
   backdrop-filter: blur(8px);
   border-radius: 10px;
@@ -181,70 +185,24 @@ body::after {
   position: relative;
 }
 
-.footer p {
-  margin: 5px 0;
-  line-height: 1.4;
-}
+.footer .copyright { color: #ff69b4; font-weight: 600; font-size: 0.75rem; }
+.footer .developer { color: rgba(255, 255, 255, 0.9); font-weight: 500; display: flex; justify-content: center; gap: 5px; margin-top: 5px; }
+.footer .bot-name { color: #ff1493; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.footer .carrot { color: #ffa500; font-size: 1rem; }
+.footer .heart { color: #ff1493; animation: heartbeat 1.5s ease-in-out infinite; }
 
-.footer .copyright {
-  color: #ff69b4;
-  font-weight: 600;
-  font-size: 0.8rem;
-}
+@keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
 
-.footer .developer {
-  color: rgba(255, 255, 255, 0.9);
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-  margin-top: 8px;
-}
+.footer a { color: #ff69b4; text-decoration: none; font-weight: 600; }
+.footer a:hover { text-decoration: underline; color: #ff1493; }
 
-.footer .bot-name {
-  color: #ff1493;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.footer .carrot {
-  color: #ffa500;
-  font-size: 1rem;
-}
-
-.footer .heart {
-  color: #ff1493;
-  animation: heartbeat 1.5s ease-in-out infinite;
-}
-
-@keyframes heartbeat {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-}
-
-.footer a {
-  color: #ff69b4;
-  text-decoration: none;
-  font-weight: 600;
-}
-
-.footer a:hover {
-  text-decoration: underline;
-  color: #ff1493;
-}
-
-/* Responsive adjustments */
 @media (max-width: 500px) {
-  .footer {
-    font-size: 0.7rem;
-    padding: 8px 12px;
-  }
-  
-  .footer .copyright {
-    font-size: 0.75rem;
-  }
+  .box { min-height: 400px; padding: 15px; }
+  .centered-text { font-size: 1.1rem; }
+  #text h6 { font-size: 0.85rem; }
+  .input-container input, .input-container button { padding: 10px; font-size: 0.85rem; }
+  #copy { font-size: 0.9rem; padding: 10px 15px; min-width: 140px; }
+  .footer { font-size: 0.65rem; padding: 6px 8px; }
 }
 
 </style>
@@ -268,7 +226,6 @@ body::after {
     </div>
   </div>
   
-  <!-- Footer with Copyright Disclaimer -->
   <div class="footer">
     <p class="copyright">© 2025 kausXLabs. All Rights Reserved.</p>
     <p class="developer">
@@ -277,7 +234,7 @@ body::after {
     <p class="bot-name">
       <i class=""></i> IZUMI LITE <span class="heart">❤️</span>
     </p>
-    <p style="margin-top: 8px; font-size: 0.65rem; opacity: 0.6;">
+    <p style="margin-top: 6px; font-size: 0.6rem; opacity: 0.6;">
       This software is protected by copyright laws. Unauthorized reproduction or distribution is prohibited.
     </p>
   </div>
@@ -290,12 +247,9 @@ let submitBtn = document.getElementById("submit");
 let numberInput = document.getElementById("number");
 let box = document.getElementById("box");
 
-// Load background image asynchronously
 const bgImage = new Image();
 bgImage.src = 'https://files.catbox.moe/fvr809.jpg';
-bgImage.onload = () => {
-  document.body.classList.add('bg-loaded');
-}
+bgImage.onload = () => { document.body.classList.add('bg-loaded'); }
 
 async function Copy() {
   let text = document.getElementById("copy").innerText;
