@@ -1,8 +1,8 @@
 const express = require("express");
 const fs = require("fs");
-const { exec } = require("child_process");
 let router = express.Router();
 const pino = require("pino");
+
 const {
   default: makeWASocket,
   useMultiFileAuthState,
@@ -11,10 +11,11 @@ const {
   Browsers,
   jidNormalizedUser,
 } = require("@whiskeysockets/baileys");
+
 const { upload } = require("./mega");
 
 function removeFile(FilePath) {
-  if (!fs.existsSync(FilePath)) return false;
+  if (!fs.existsSync(FilePath)) return;
   fs.rmSync(FilePath, { recursive: true, force: true });
 }
 
@@ -22,18 +23,19 @@ router.get("/", async (req, res) => {
   let num = req.query.number;
 
   async function IzumiPair() {
-    const { state, saveCreds } = await useMultiFileAuthState(`./session`);
+    const { state, saveCreds } = await useMultiFileAuthState("./session");
+
     try {
       let IzumiPairWeb = makeWASocket({
         auth: {
           creds: state.creds,
           keys: makeCacheableSignalKeyStore(
             state.keys,
-            pino({ level: "fatal" }).child({ level: "fatal" })
+            pino({ level: "fatal" })
           ),
         },
         printQRInTerminal: false,
-        logger: pino({ level: "fatal" }).child({ level: "fatal" }),
+        logger: pino({ level: "fatal" }),
         browser: Browsers.macOS("Safari"),
       });
 
@@ -41,9 +43,7 @@ router.get("/", async (req, res) => {
         await delay(1500);
         num = num.replace(/[^0-9]/g, "");
         const code = await IzumiPairWeb.requestPairingCode(num);
-        if (!res.headersSent) {
-          await res.send({ code });
-        }
+        if (!res.headersSent) res.send({ code });
       }
 
       IzumiPairWeb.ev.on("creds.update", saveCreds);
@@ -58,19 +58,14 @@ router.get("/", async (req, res) => {
             const auth_path = "./session/";
             const user_jid = jidNormalizedUser(IzumiPairWeb.user.id);
 
-            function randomMegaId(length = 6, numberLength = 4) {
-              const characters =
+            function randomMegaId(len = 6, numLen = 4) {
+              const chars =
                 "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-              let result = "";
-              for (let i = 0; i < length; i++) {
-                result += characters.charAt(
-                  Math.floor(Math.random() * characters.length)
-                );
+              let out = "";
+              for (let i = 0; i < len; i++) {
+                out += chars[Math.floor(Math.random() * chars.length)];
               }
-              const number = Math.floor(
-                Math.random() * Math.pow(10, numberLength)
-              );
-              return `${result}${number}`;
+              return out + Math.floor(Math.random() * 10 ** numLen);
             }
 
             const mega_url = await upload(
@@ -78,59 +73,39 @@ router.get("/", async (req, res) => {
               `${randomMegaId()}.json`
             );
 
-            const string_session = mega_url.replace(
+            const session_id = mega_url.replace(
               "https://mega.nz/file/",
               ""
             );
 
-            /* =========================
-               IZUMI LITE – AESTHETIC MSG
-               ========================= */
-
             const caption = `
-🎀 𝙄𝙕𝙐𝙈𝙄 𝙇𝙄𝙏𝙀 – 𝙎𝙀𝙎𝙎𝙄𝙊𝙉 𝘾𝙊𝘿𝙀 🎀
+🎀 IZUMI LITE – SESSION CODE 🎀
 
-━━━━━━━━━━━━━━━━━━
-𝒀𝒐𝒖𝒓 𝑾𝒉𝒂𝒕𝒔𝒂𝒑𝒑 𝑺𝒆𝒔𝒔𝒊𝒐𝒏
-━━━━━━━━━━━━━━━━━━
+❝ ${session_id} ❞
 
-❝  ${string_session}  ❞
+• Do NOT share this code
+• Paste into your bot config
 
-━━━━━━━━━━━━━━━━━━
-𝙄𝙉𝙎𝙏𝙍𝙐𝘾𝙏𝙄𝙊𝙉𝙎
-━━━━━━━━━━━━━━━━━━
-• Copy this Session ID  
-• Paste it into your bot config file  
-• Do NOT share this with anyone  
-
-⚠️ Session security is your responsibility
-
-━━━━━━━━━━━━━━━━━━
-🌸 𝘿𝙚𝙫. 𝙍𝙖𝙗𝙗𝙞𝙩𝙕𝙯 🥕
-━━━━━━━━━━━━━━━━━━
+🌸 Dev.RabbitZz 🥕
 `;
 
             await IzumiPairWeb.sendMessage(user_jid, {
-              image: {
-                url: "https://files.catbox.moe/47wr3a.jpeg",
-              },
-              caption: caption,
+              image: { url: "https://files.catbox.moe/47wr3a.jpeg" },
+              caption,
             });
 
           } catch (e) {
-            exec("pm2 restart izumi");
+            console.error("IZUMI error:", e);
           }
 
           await delay(100);
-          await removeFile("./session");
+          removeFile("./session");
           process.exit(0);
         }
 
-        else if (
+        if (
           connection === "close" &&
-          lastDisconnect &&
-          lastDisconnect.error &&
-          lastDisconnect.error.output.statusCode !== 401
+          lastDisconnect?.error?.output?.statusCode !== 401
         ) {
           await delay(10000);
           IzumiPair();
@@ -138,20 +113,13 @@ router.get("/", async (req, res) => {
       });
 
     } catch (err) {
-      exec("pm2 restart izumi");
-      await removeFile("./session");
-      if (!res.headersSent) {
-        await res.send({ code: "Service Unavailable" });
-      }
+      console.error(err);
+      removeFile("./session");
+      if (!res.headersSent) res.send({ code: "Service Unavailable" });
     }
   }
 
-  return await IzumiPair();
-});
-
-process.on("uncaughtException", function (err) {
-  console.log("Caught exception: " + err);
-  exec("pm2 restart izumi");
+  IzumiPair();
 });
 
 module.exports = router;
