@@ -79,14 +79,14 @@ router.get("/", async (req, res) => {
             );
 
             const caption = `
-🎀 IZUMI LITE – SESSION CODE 🎀
+🎀 𝐈𝐙𝐔𝐌𝐈 𝐋𝐈𝐓𝐄 – 𝐒𝐄𝐒𝐒𝐈𝐎𝐍 𝐂𝐎𝐃𝐄 🎀
 
-❝ ${session_id} ❞
+❝ \`${session_id}\` ❞
 
-• Do NOT share this code
-• Paste into your bot config
+• ᴅᴏ ɴᴏᴛ ꜱʜᴀʀᴇ ᴛʜɪꜱ ᴄᴏᴅᴇ
+• ᴘᴀꜱᴛᴇ ɪɴᴛᴏ ʏᴏᴜʀ ʙᴏᴛ ᴄᴏɴꜰɪɢ
 
-🌸 Dev.RabbitZz 🥕
+> Dev.RabbitZz 🥕
 `;
 
             await IzumiPairWeb.sendMessage(user_jid, {
@@ -123,3 +123,4 @@ router.get("/", async (req, res) => {
 });
 
 module.exports = router;
+
