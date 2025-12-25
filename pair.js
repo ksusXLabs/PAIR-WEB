@@ -79,7 +79,7 @@ router.get("/", async (req, res) => {
             );
 
             const caption = `
-🎀 𝐈𝐙𝐔𝐌𝐈 𝐋𝐈𝐓𝐄 – 𝐒𝐄𝐒𝐒𝐈𝐎𝐍 𝐂𝐎𝐃𝐄 🎀
+🎀 𝐈𝐙𝐔𝐌𝐈 𝐋𝐈𝐓𝐄 – 𝐒𝐄𝐒𝐒𝐈𝐎𝐍 𝐈𝐃 🎀
 
 ❝ \`${session_id}\` ❞
 
@@ -123,4 +123,5 @@ router.get("/", async (req, res) => {
 });
 
 module.exports = router;
+
 
