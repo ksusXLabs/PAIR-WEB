@@ -1,227 +1,335 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PAIR CODE</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <style>
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      background-color: #141414;
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: cover;
-      font-family: 'Arial', sans-serif;
-      color: #fff; /* Set the text color to white */
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IZUMI LITE • LIQUID GLASS</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
 
-    .container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-    .box {
-      width: 300px;
-      height: 330px;
-      padding: 20px;
-      position: relative;
-      text-align: center;
-      background-color: #a20000; /* Update background color */
-      border-radius: 10px;
-      transform: perspective(1000px) rotateY(0deg);
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
-      position: relative;
-    }
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-family: 'Montserrat', sans-serif;
+  overflow: hidden;
+  position: relative;
+  background-color: #141414;
+  transition: background 1s ease-in-out;
+}
 
-    #text {
-      color: #ffffff; /* Set the text color to black (#000) */
-    }
+/* Background image container */
+body.bg-loaded {
+  background: url('https://files.catbox.moe/fvr809.jpg') no-repeat center center/cover;
+}
 
-    .input-container input {
-      color: #ffffff; /* Set the text color to black (#000) */
-    }
+/* Pink overlay for theme */
+body::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,105,180,0.1);
+  pointer-events: none;
+}
 
-    .centered-text {
-      color: #ffffff; /* Set the text color to black (#000) */
-    }
+/* Container */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 2;
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+}
 
-    .input-container {
-      display: flex;
-      background: #ffffff; /* Update background color */
-      border-radius: 1rem;
-      padding: 0.3rem;
-      gap: 0.3rem;
-      max-width: 300px;
-      width: 100%;
-    }
+/* Liquid Glass Box */
+.box {
+  width: 100%;
+  height: 380px;
+  padding: 25px;
+  position: relative;
+  text-align: center;
+  background: rgba(255,182,193,0.15);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-radius: 20px;
+  border: 1px solid rgba(255,182,193,0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  z-index: 2;
+}
 
-    .input-container input {
-      border-radius: 0.8rem 0 0 0.8rem;
-      background: #000000; /* Update background color */
-      width: 89%;
-      flex-basis: 75%;
-      padding: 1rem;
-      border: none;
-      border-left: 2px solid #075e54; /* Update border color */
-      color: #ecf0f1; /* Set text color to light grey */
-      transition: all 0.2s ease-in-out;
-    }
+.glass-reflection {
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.05) 50%, transparent 70%);
+  transform: rotate(45deg) translate(-50%, -50%);
+  animation: glassShine 8s infinite linear;
+  z-index: 3;
+  pointer-events: none;
+}
 
-    .input-container input:focus {
-      border-left: 2px solid #075e54;
-      outline: none;
-      box-shadow: inset 13px 13px 10px #075e54, inset -13px -13px 10px #2c3e50;
-    }
+@keyframes glassShine {
+  0% { transform: rotate(45deg) translate(-100%, -100%); }
+  100% { transform: rotate(45deg) translate(100%, 100%); }
+}
 
-    .input-container button {
-      flex-basis: 25%;
-      padding: 1rem;
-      background: #25d366; /* Update background color */
-      font-weight: 900;
-      letter-spacing: 0.3rem;
-      text-transform: uppercase;
-      color: white;
-      border: none;
-      width: 100%;
-      border-radius: 0 1rem 1rem 0;
-      transition: all 0.2s ease-in-out;
-    }
+#text { color: #fff; position: relative; z-index: 5; display: flex; flex-direction: column; }
 
-    .input-container button:hover {
-      background: #2980b9; /* Update background color on hover */
-    }
+.centered-text { color: #fff; margin-bottom: 20px; font-weight: 600; font-size: 1.4rem; text-shadow: 0 2px 6px rgba(255,105,180,0.6); }
 
-    #waiting-message {
-      color: #ffffff; /* Set text color to light grey */
-      margin-top: 10px;
-    }
+#text h6 { margin: 15px 0 25px 0; font-weight: 400; font-size: 0.95rem; opacity: 0.9; color: #ff69b4; }
 
-    @media (max-width: 500px) {
-      .input-container {
-        flex-direction: column;
-      }
+.input-container {
+  display: flex;
+  background: rgba(255,182,193,0.15);
+  border-radius: 12px;
+  padding: 4px;
+  gap: 4px;
+  width: 100%;
+  border: 1px solid rgba(255,182,193,0.3);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.2), 0 4px 12px rgba(0,0,0,0.2);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
 
-      .input-container input {
-        border-radius: 0.8rem;
-      }
+.input-container input {
+  border-radius: 10px 0 0 10px;
+  background: rgba(0,0,0,0.3);
+  width: 100%;
+  flex-basis: 75%;
+  padding: 15px;
+  border: none;
+  border-left: 2px solid transparent;
+  color: #fff;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
 
-      .input-container button {
-        padding: 1rem;
-        border-radius: 0.8rem;
-      }
-    }
+.input-container input::placeholder { color: rgba(255,182,193,0.7); }
 
-    .centered-text {
-      text-align: center;
-    }
+.input-container input:focus { border-left: 2px solid #ff69b4; outline: none; background: rgba(0,0,0,0.4); }
 
-    /* Add styles for the loading spinner */
-    #loading-spinner {
-      display: none;
-      color: white;
-      margin-top: 10px;
-    }
+.input-container button {
+  flex-basis: 25%;
+  padding: 15px;
+  background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
 
-    .fa-spinner {
-      animation: spin 2s linear infinite;
-    }
+.input-container button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(255,20,147,0.5);
+}
 
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-  </style>
+#loading-spinner { display: none; margin: 15px 0; }
+
+.fa-spinner { color: #ff69b4; font-size: 1.5rem; animation: spin 1.5s linear infinite; text-shadow: 0 0 10px #ff1493; }
+
+#pair {
+  margin-top: 20px;
+  min-height: 50px;
+}
+
+#copy {
+  display: inline-block;
+  padding: 15px 25px;
+  background: rgba(255,182,193,0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  border: 1px solid rgba(255,182,193,0.3);
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  text-align: center;
+  min-width: 200px;
+  transition: all 0.3s ease;
+}
+
+#copy span { color: #ff1493; font-weight: 700; text-shadow: 0 0 10px #ff69b4; }
+
+/* Footer Styles */
+.footer {
+  margin-top: 25px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.75rem;
+  padding: 10px 15px;
+  background: rgba(255, 182, 193, 0.1);
+  backdrop-filter: blur(8px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 182, 193, 0.2);
+  width: 100%;
+  max-width: 380px;
+  z-index: 4;
+  position: relative;
+}
+
+.footer p {
+  margin: 5px 0;
+  line-height: 1.4;
+}
+
+.footer .copyright {
+  color: #ff69b4;
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+.footer .developer {
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  margin-top: 8px;
+}
+
+.footer .bot-name {
+  color: #ff1493;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.footer .carrot {
+  color: #ffa500;
+  font-size: 1rem;
+}
+
+.footer .heart {
+  color: #ff1493;
+  animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.footer a {
+  color: #ff69b4;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+  color: #ff1493;
+}
+
+/* Responsive adjustments */
+@media (max-width: 500px) {
+  .footer {
+    font-size: 0.7rem;
+    padding: 8px 12px;
+  }
+  
+  .footer .copyright {
+    font-size: 0.75rem;
+  }
+}
+
+</style>
 </head>
 <body>
-  <div class="container">
-    <div class="main">
-      <div class="box" id="box">
-        <div id="text">
-          <i class="fa fa-user"></i>
-          <p>
-            <h3 class="centered-text">Link Robin with phone number</h3>
-            <br>
-            <h6>🔢 Enter your number with country code. ROBIN WEB PAIR</h6>
-            <div class="input-container">
-              <input placeholder="+94704xxxxxx" type="number" id="number" placeholder="❗ Enter your phone number with country code, ROBIN WEB PAIR" name="">
-              <button id="submit">Submit ROBIN</button>
-            </div>
-            <!-- Add the loading spinner -->
-            <div id="loading-spinner">
-              <i class="fas fa-spinner fa-spin"></i>
-            </div>
-            <br>
-            <br>
-            <main id="pair"></main>
-          </p>
+<div class="container">
+  <div class="glass-reflection"></div>
+  <div class="main">
+    <div class="box" id="box">
+      <div id="text">
+        <i class="fa fa-user" style="color: #ff69b4; margin-bottom: 10px; font-size: 1.2rem;"></i>
+        <h3 class="centered-text">Link with phone number</h3>
+        <h6>💖 Enter your number with<br>country code.</h6>
+        <div class="input-container">
+          <input placeholder="+94704xxxxxx" type="number" id="number" name="">
+          <button id="submit">Submit</button>
         </div>
+        <div id="loading-spinner"><i class="fas fa-spinner fa-spin"></i></div>
+        <main id="pair"></main>
       </div>
     </div>
   </div>
-  <script
-  src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"
-  ></script>
-  <script>
-    
-    let a = document.getElementById("pair");
-    let b = document.getElementById("submit");
-    let c = document.getElementById("number");
-    let box = document.getElementById("box");
+  
+  <!-- Footer with Copyright Disclaimer -->
+  <div class="footer">
+    <p class="copyright">© 2025 kausXLabs. All Rights Reserved.</p>
+    <p class="developer">
+      <i class="fas fa-code"></i> Developer: Dev.RabbitZz <span class="carrot">🥕</span>
+    </p>
+    <p class="bot-name">
+      <i class=""></i> IZUMI LITE <span class="heart">❤️</span>
+    </p>
+    <p style="margin-top: 8px; font-size: 0.65rem; opacity: 0.6;">
+      This software is protected by copyright laws. Unauthorized reproduction or distribution is prohibited.
+    </p>
+  </div>
+</div>
 
-    async function Copy() {
-      let text = document.getElementById("copy").innerText;
-      let obj = document.getElementById("copy");
-      await navigator.clipboard.writeText(obj.innerText.replace('CODE: ', ''));
-      obj.innerText = "✔️ COPIED";
-      obj.style = "color:blue;font-weight:bold";
-      obj.size = "5";
-      setTimeout(() => {
-        obj.innerText = text;
-        obj.style = "color:white;font-weight-bold";
-        obj.size = "5";
-      }, 500);
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
+<script>
+let pairContainer = document.getElementById("pair");
+let submitBtn = document.getElementById("submit");
+let numberInput = document.getElementById("number");
+let box = document.getElementById("box");
+
+// Load background image asynchronously
+const bgImage = new Image();
+bgImage.src = 'https://files.catbox.moe/fvr809.jpg';
+bgImage.onload = () => {
+  document.body.classList.add('bg-loaded');
+}
+
+async function Copy() {
+  let text = document.getElementById("copy").innerText;
+  let obj = document.getElementById("copy");
+  await navigator.clipboard.writeText(obj.innerText.replace('CODE: ', ''));
+  obj.innerText = "✔️ COPIED";
+  obj.style.color = "#ff69b4";
+  setTimeout(() => { obj.innerText = text; obj.style.color = "#fff"; }, 500);
+}
+
+submitBtn.addEventListener("click", async (e) => {
+  e.preventDefault();
+  if (!numberInput.value) {
+    pairContainer.innerHTML = '<a style="color:#ff6b6b;font-weight:bold">🎀 Enter your WhatsApp number with country code.</a>';
+  } else if (numberInput.value.replace(/[^0-9]/g, "").length < 11) {
+    pairContainer.innerHTML = '<a style="color:#ff6b6b;font-weight:bold">🎀Invalid number format. Try again.</a>';
+  } else {
+    const bc = numberInput.value.replace(/[^0-9]/g, "");
+    numberInput.type = "text";
+    numberInput.value = "+" + bc;
+    numberInput.style.color = "#fff";
+    document.getElementById("loading-spinner").style.display = "block";
+    pairContainer.innerHTML = '';
+    try {
+      let { data } = await axios(`/code?number=${bc}`);
+      let code = data.code || "❗ Service Unavailable";
+      pairContainer.innerHTML = '<font id="copy" onclick="Copy()" style="color:#ff69b4;font-weight:bold" size="5">CODE: <span>' + code + '</span></font>';
+    } catch (error) {
+      pairContainer.innerHTML = '<a style="color:#ff6b6b;font-weight:bold">❗Connection error. Try again.</a>';
+    } finally {
+      document.getElementById("loading-spinner").style.display = "none";
     }
-
-    b.addEventListener("click", async (e) => {
-      e.preventDefault();
-      if (!c.value) {
-        a.innerHTML = '<a style="color:black;font-weight:bold">❗Enter your whatsapp number with country code.</a><br><br>';
-      } else if (c.value.replace(/[^0-9]/g, "").length < 11) {
-        a.innerHTML = '<a style="color:black;font-weight:bold">❗Invalid number format. Please try again.</a><br><br>';
-      } else {
-        const bc = c.value.replace(/[^0-9]/g, "");
-        let bb = "";
-        let bbc = "";
-        const cc = bc.split('');
-        cc.map(a => {
-          bbc += a;
-          if (bbc.length == 3) {
-            bb += " " + a;
-          } else if (bbc.length == 8) {
-            bb += " " + a;
-          } else {
-            bb += a;
-          }
-        });
-        c.type = "text";
-        c.value = "+" + bb;
-        c.style = "color:white;font-size:20px";
-        // Show the loading spinner
-        document.getElementById("loading-spinner").style.display = "block";
-        a.innerHTML = ''; // Clear the previous content
-        let { data } = await axios(`/code?number=${bc}`);
-        let code = data.code || "❗ Service Unavailable";
-        a.innerHTML = '<font id="copy" onclick="Copy()" style="color:blue;font-weight:bold" size="5">CODE: <span style="color:black;font-weight:bold">' + code + '</span></font><br><br><br>';
-        // Hide the loading spinner when the process is complete
-        document.getElementById("loading-spinner").style.display = "none";
-      }
-    });
-  </script>
+  }
+});
+</script>
 </body>
 </html>
