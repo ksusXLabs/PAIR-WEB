@@ -90,7 +90,7 @@ router.get("/", async (req, res) => {
 `;
 
             await IzumiPairWeb.sendMessage(user_jid, {
-              image: { url: "https://files.catbox.moe/47wr3a.jpeg" },
+              image: { url: "https://www.movanest.xyz/LzhLzc.png" },
               caption,
             });
 
@@ -123,5 +123,6 @@ router.get("/", async (req, res) => {
 });
 
 module.exports = router;
+
 
 
