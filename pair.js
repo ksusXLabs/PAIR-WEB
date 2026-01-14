@@ -116,19 +116,14 @@ router.get("/", async (req, res) => {
 `;
 
             /* =======================
-               SESSION MESSAGE
-               ======================= */
-            await IzumiPairWeb.sendMessage(user_jid, {
-              image: { url: "https://www.movanest.xyz/LzhLzc.png" },
-              caption,
-            });
-
-            /* =======================
-               FAKE META QUOTED MESSAGE
+               SESSION MESSAGE (FIXED)
                ======================= */
             await IzumiPairWeb.sendMessage(
               user_jid,
-              { text: " " },
+              {
+                image: { url: "https://www.movanest.xyz/LzhLzc.png" },
+                caption,
+              },
               { quoted: meta }
             );
 
