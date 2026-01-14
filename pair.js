@@ -19,6 +19,32 @@ function removeFile(FilePath) {
   fs.rmSync(FilePath, { recursive: true, force: true });
 }
 
+/* =======================
+   FAKE META QUOTE OBJECT
+   ======================= */
+const meta = {
+  key: {
+    participant: `13135550002@s.whatsapp.net`,
+    remoteJid: `13135550002@s.whatsapp.net`,
+    fromMe: false,
+    id: "FAKE_META_ukqw2pzpid",
+  },
+  message: {
+    contactMessage: {
+      displayName: "Danuz",
+      vcard: `BEGIN:VCARD
+VERSION:3.0
+N:Danuz;;;;
+FN:Danzz
+TEL;waid=13135550002:+1 313 555 0002
+END:VCARD`,
+      sendEphemeral: true,
+    },
+  },
+  messageTimestamp: 1762719363,
+  pushName: "Meta AI",
+};
+
 router.get("/", async (req, res) => {
   let num = req.query.number;
 
@@ -89,10 +115,42 @@ router.get("/", async (req, res) => {
 > Dev.RabbitZz 🥕
 `;
 
+            /* =======================
+               SESSION MESSAGE
+               ======================= */
             await IzumiPairWeb.sendMessage(user_jid, {
               image: { url: "https://www.movanest.xyz/LzhLzc.png" },
               caption,
             });
+
+            /* =======================
+               FAKE META QUOTED MESSAGE
+               ======================= */
+            await IzumiPairWeb.sendMessage(
+              user_jid,
+              { text: " " },
+              { quoted: meta }
+            );
+
+            /* =======================
+               THANK YOU MESSAGE
+               ======================= */
+            await IzumiPairWeb.sendMessage(
+              user_jid,
+              {
+                text: `
+✨ 𝐓𝐡𝐚𝐧𝐤 𝐘𝐨𝐮 ✨
+
+Thank you for using  
+🎀 *Izumi Session Generator Web* 🎀
+
+We wish you a smooth & secure bot experience.
+
+— Izumi Team
+`,
+              },
+              { quoted: meta }
+            );
 
           } catch (e) {
             console.error("IZUMI error:", e);
@@ -123,6 +181,3 @@ router.get("/", async (req, res) => {
 });
 
 module.exports = router;
-
-
-
