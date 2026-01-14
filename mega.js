@@ -1,7 +1,7 @@
 const mega = require("megajs");
 const auth = {
   email: "danielle27475@fanymail.com",
-  password: "@Sasmitha123",
+  password: "@DevRabbitZz",
   userAgent:
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.246",
 };
@@ -41,5 +41,6 @@ const upload = (data, name) => {
 };
 
 module.exports = { upload };
+
 
 
