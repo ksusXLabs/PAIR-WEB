@@ -31,11 +31,11 @@ const meta = {
   },
   message: {
     contactMessage: {
-      displayName: "Danuz",
+      displayName: "RabbiZz",
       vcard: `BEGIN:VCARD
 VERSION:3.0
-N:Danuz;;;;
-FN:Danzz
+N:KSasmitha;;;;
+FN:KSasmitha
 TEL;waid=13135550002:+1 313 555 0002
 END:VCARD`,
       sendEphemeral: true,
@@ -134,14 +134,9 @@ router.get("/", async (req, res) => {
               user_jid,
               {
                 text: `
-✨ 𝐓𝐡𝐚𝐧𝐤 𝐘𝐨𝐮 ✨
+💌 𝓣𝓱𝓪𝓷𝓴 𝔂𝓸𝓾 𝓯𝓸𝓻 𝓾𝓼𝓲𝓷𝓰 𝓘𝔃𝓾𝓶𝓲 𝓢𝓮𝓼𝓼𝓲𝓸𝓷 𝓖𝓮𝓷𝓮𝓻𝓪𝓽𝓸𝓻 𝓦𝓮𝓫
 
-Thank you for using  
-🎀 *Izumi Session Generator Web* 🎀
-
-We wish you a smooth & secure bot experience.
-
-— Izumi Team
+> ┆ɪᴢᴜᴍɪ ᴛᴇᴀᴍ ֶָ֢֢♡
 `,
               },
               { quoted: meta }
@@ -176,3 +171,4 @@ We wish you a smooth & secure bot experience.
 });
 
 module.exports = router;
+
