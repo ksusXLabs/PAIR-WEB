@@ -7,204 +7,91 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
-
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
-html, body {
-  height: 100%;
-}
-
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body { height:100%; }
 body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: 'Montserrat', sans-serif;
-  overflow: hidden;
-  position: relative;
-  background-color: #141414;
+  display:flex; justify-content:center; align-items:center;
+  font-family:'Montserrat',sans-serif; overflow:hidden;
+  position:relative; background-color:#141414;
   transition: background 1s ease-in-out;
 }
-
-body.bg-loaded {
-  background: url('https://files.catbox.moe/fvr809.jpg') no-repeat center center/cover;
-}
-
+body.bg-loaded { background:url('https://rabbitzzsl.sirv.com/Images/fvr809.jpg') no-repeat center center/cover; }
 body::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(255,105,180,0.1);
-  pointer-events: none;
+  content:''; position:absolute; inset:0;
+  background:rgba(255,105,180,0.1); pointer-events:none;
 }
-
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  z-index: 2;
-  width: 95%;
-  max-width: 400px;
-  padding: 10px;
+.container { display:flex; flex-direction:column; align-items:center; z-index:2; width:95%; max-width:400px; padding:10px; }
+.box { width:100%; max-width:400px; min-height:450px; padding:20px; position:relative; text-align:center;
+  background: rgba(255,182,193,0.15); backdrop-filter: blur(15px); border-radius:20px; border:1px solid rgba(255,182,193,0.3);
+  box-shadow:0 8px 32px rgba(0,0,0,0.3); overflow:hidden; z-index:2; display:flex; flex-direction:column; justify-content:center;
 }
-
-.box {
-  width: 100%;
-  max-width: 400px;
-  height: auto;
-  min-height: 450px;
-  padding: 20px;
-  position: relative;
-  text-align: center;
-  background: rgba(255,182,193,0.15);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  border-radius: 20px;
-  border: 1px solid rgba(255,182,193,0.3);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  overflow: hidden;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
 .glass-reflection {
-  position: absolute;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.05) 50%, transparent 70%);
-  transform: rotate(45deg) translate(-50%, -50%);
-  animation: glassShine 8s infinite linear;
-  z-index: 3;
-  pointer-events: none;
+  position:absolute; width:200%; height:200%;
+  background:linear-gradient(45deg,transparent 30%, rgba(255,255,255,0.05) 50%, transparent 70%);
+  transform:rotate(45deg) translate(-50%,-50%);
+  animation:glassShine 8s infinite linear;
+  z-index:3; pointer-events:none;
 }
-
 @keyframes glassShine {
-  0% { transform: rotate(45deg) translate(-100%, -100%); }
-  100% { transform: rotate(45deg) translate(100%, 100%); }
+  0% { transform:rotate(45deg) translate(-100%,-100%); }
+  100% { transform:rotate(45deg) translate(100%,100%); }
 }
-
-#text { color: #fff; position: relative; z-index: 5; display: flex; flex-direction: column; }
-
-.centered-text { color: #fff; margin-bottom: 15px; font-weight: 600; font-size: 1.2rem; text-shadow: 0 2px 6px rgba(255,105,180,0.6); }
-
-#text h6 { margin: 10px 0 15px 0; font-weight: 400; font-size: 0.9rem; opacity: 0.9; color: #ff69b4; }
-
-.input-container {
-  display: flex;
-  background: rgba(255,182,193,0.15);
-  border-radius: 12px;
-  padding: 4px;
-  gap: 4px;
-  width: 100%;
-  border: 1px solid rgba(255,182,193,0.3);
-  box-shadow: inset 0 2px 4px rgba(0,0,0,0.2), 0 4px 12px rgba(0,0,0,0.2);
-  backdrop-filter: blur(10px);
-  transition: all 0.3s ease;
+#text { color:#fff; position:relative; z-index:5; display:flex; flex-direction:column; }
+.centered-text { color:#fff; margin-bottom:15px; font-weight:600; font-size:1.2rem; text-shadow:0 2px 6px rgba(255,105,180,0.6); }
+#text h6 { margin:10px 0 15px 0; font-weight:400; font-size:0.9rem; opacity:0.9; color:#ff69b4; }
+.input-container { display:flex; background:rgba(255,182,193,0.15); border-radius:12px; padding:4px; gap:4px;
+  width:100%; border:1px solid rgba(255,182,193,0.3); box-shadow: inset 0 2px 4px rgba(0,0,0,0.2), 0 4px 12px rgba(0,0,0,0.2);
+  backdrop-filter: blur(10px); transition:all 0.3s ease;
 }
+.input-container input { border-radius:10px 0 0 10px; background:rgba(0,0,0,0.3); width:100%; flex-basis:70%;
+  padding:12px; border:none; border-left:2px solid transparent; color:#fff; font-size:0.9rem; transition:all 0.3s ease; }
+.input-container input::placeholder { color: rgba(255,182,193,0.7);}
+.input-container input:focus { border-left:2px solid #ff69b4; outline:none; background:rgba(0,0,0,0.4); }
+.input-container button { flex-basis:30%; padding:12px; background:linear-gradient(135deg,#ff69b4 0%,#ff1493 100%); font-weight:600;
+  letter-spacing:0.5px; text-transform:uppercase; color:white; border:none; border-radius:10px; cursor:pointer; transition:all 0.3s ease;
+  position:relative; overflow:hidden;}
+.input-container button:hover { transform:translateY(-2px); box-shadow:0 4px 15px rgba(255,20,147,0.5); }
+#loading-spinner { display:none; margin:15px 0; }
+.fa-spinner { color:#ff69b4; font-size:1.5rem; animation:spin 1.5s linear infinite; text-shadow:0 0 10px #ff1493; }
+#pair { margin-top:15px; min-height:50px; word-break:break-word; }
+#copy { display:inline-block; padding:12px 20px; background:rgba(255,182,193,0.15); backdrop-filter:blur(10px); border-radius:12px;
+  border:1px solid rgba(255,182,193,0.3); color:#fff; font-weight:600; font-size:1rem; cursor:pointer; text-align:center; min-width:150px; transition:all 0.3s ease; }
+#copy span { color:#ff1493; font-weight:700; text-shadow:0 0 10px #ff69b4; }
+.footer { margin-top:15px; text-align:center; color:rgba(255,255,255,0.7); font-size:0.7rem; padding:8px 10px;
+  background:rgba(255,182,193,0.1); backdrop-filter:blur(8px); border-radius:10px; border:1px solid rgba(255,182,193,0.2);
+  width:100%; max-width:380px; z-index:4; position:relative; }
+.footer .copyright { color:#ff69b4; font-weight:600; font-size:0.75rem; }
+.footer .developer { color:rgba(255,255,255,0.9); font-weight:500; display:flex; justify-content:center; gap:5px; margin-top:5px; }
+.footer .bot-name { color:#ff1493; font-weight:700; text-transform:uppercase; letter-spacing:1px; }
+.footer .carrot { color:#ffa500; font-size:1rem; }
+.footer .heart { color:#ff1493; animation:heartbeat 1.5s ease-in-out infinite; }
+@keyframes heartbeat {0%,100%{transform:scale(1);}50%{transform:scale(1.1);} }
+.footer a { color:#ff69b4; text-decoration:none; font-weight:600; }
+.footer a:hover { text-decoration:underline; color:#ff1493; }
+@media(max-width:500px){.box{min-height:400px;padding:15px;}.centered-text{font-size:1.1rem;}#text h6{font-size:0.85rem;}
+.input-container input,.input-container button{padding:10px;font-size:0.85rem;}#copy{font-size:0.9rem;padding:10px 15px;min-width:140px;}
+.footer{font-size:0.65rem;padding:6px 8px;}}
 
-.input-container input {
-  border-radius: 10px 0 0 10px;
-  background: rgba(0,0,0,0.3);
-  width: 100%;
-  flex-basis: 70%;
-  padding: 12px;
-  border: none;
-  border-left: 2px solid transparent;
-  color: #fff;
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
+/* 🔹 Mini music button only */
+#miniMusic {
+  position: fixed;
+  bottom:20px;
+  right:20px;
+  width:60px; height:60px;
+  background: rgba(255,182,193,0.2);
+  backdrop-filter: blur(12px);
+  border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  z-index:999; cursor:pointer;
+  box-shadow:0 4px 20px rgba(255,20,147,0.4);
+  transition: transform 0.3s ease;
 }
-
-.input-container input::placeholder { color: rgba(255,182,193,0.7); }
-
-.input-container input:focus { border-left: 2px solid #ff69b4; outline: none; background: rgba(0,0,0,0.4); }
-
-.input-container button {
-  flex-basis: 30%;
-  padding: 12px;
-  background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
+#miniMusic:hover { transform:scale(1.05); }
+#miniMusic i { font-size:24px; color:#ff69b4; }
+/* Mobile landscape/portrait bottom center */
+@media(max-width:700px){
+  #miniMusic { right:50%; transform:translateX(50%); bottom:20px; }
 }
-
-.input-container button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(255,20,147,0.5);
-}
-
-#loading-spinner { display: none; margin: 15px 0; }
-
-.fa-spinner { color: #ff69b4; font-size: 1.5rem; animation: spin 1.5s linear infinite; text-shadow: 0 0 10px #ff1493; }
-
-#pair {
-  margin-top: 15px;
-  min-height: 50px;
-  word-break: break-word;
-}
-
-#copy {
-  display: inline-block;
-  padding: 12px 20px;
-  background: rgba(255,182,193,0.15);
-  backdrop-filter: blur(10px);
-  border-radius: 12px;
-  border: 1px solid rgba(255,182,193,0.3);
-  color: #fff;
-  font-weight: 600;
-  font-size: 1rem;
-  cursor: pointer;
-  text-align: center;
-  min-width: 150px;
-  transition: all 0.3s ease;
-}
-
-#copy span { color: #ff1493; font-weight: 700; text-shadow: 0 0 10px #ff69b4; }
-
-.footer {
-  margin-top: 15px;
-  text-align: center;
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 0.7rem;
-  padding: 8px 10px;
-  background: rgba(255, 182, 193, 0.1);
-  backdrop-filter: blur(8px);
-  border-radius: 10px;
-  border: 1px solid rgba(255, 182, 193, 0.2);
-  width: 100%;
-  max-width: 380px;
-  z-index: 4;
-  position: relative;
-}
-
-.footer .copyright { color: #ff69b4; font-weight: 600; font-size: 0.75rem; }
-.footer .developer { color: rgba(255, 255, 255, 0.9); font-weight: 500; display: flex; justify-content: center; gap: 5px; margin-top: 5px; }
-.footer .bot-name { color: #ff1493; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
-.footer .carrot { color: #ffa500; font-size: 1rem; }
-.footer .heart { color: #ff1493; animation: heartbeat 1.5s ease-in-out infinite; }
-
-@keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
-
-.footer a { color: #ff69b4; text-decoration: none; font-weight: 600; }
-.footer a:hover { text-decoration: underline; color: #ff1493; }
-
-@media (max-width: 500px) {
-  .box { min-height: 400px; padding: 15px; }
-  .centered-text { font-size: 1.1rem; }
-  #text h6 { font-size: 0.85rem; }
-  .input-container input, .input-container button { padding: 10px; font-size: 0.85rem; }
-  #copy { font-size: 0.9rem; padding: 10px 15px; min-width: 140px; }
-  .footer { font-size: 0.65rem; padding: 6px 8px; }
-}
-
 </style>
 </head>
 <body>
@@ -225,65 +112,64 @@ body::after {
       </div>
     </div>
   </div>
-  
   <div class="footer">
     <p class="copyright">© 2026 kausXLabs. All Rights Reserved.</p>
-    <p class="developer">
-      <i class="fas fa-code"></i> Developer: Dev.RabbitZz <span class="carrot">🥕</span>
-    </p>
-    <p class="bot-name">
-      <i class=""></i> IZUMI LITE <span class="heart">❤️</span>
-    </p>
-    <p style="margin-top: 6px; font-size: 0.6rem; opacity: 0.6;">
-      This software is protected by copyright laws. Unauthorized reproduction or distribution is prohibited.
-    </p>
+    <p class="developer"><i class="fas fa-code"></i> Developer: Dev.RabbitZz <span class="carrot">🥕</span></p>
+    <p class="bot-name">IZUMI LITE <span class="heart">❤️</span></p>
+    <p style="margin-top:6px;font-size:0.6rem;opacity:0.6;">This software is protected by copyright laws.</p>
   </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
 <script>
-let pairContainer = document.getElementById("pair");
-let submitBtn = document.getElementById("submit");
-let numberInput = document.getElementById("number");
-let box = document.getElementById("box");
-
-const bgImage = new Image();
-bgImage.src = 'https://files.catbox.moe/fvr809.jpg';
-bgImage.onload = () => { document.body.classList.add('bg-loaded'); }
-
-async function Copy() {
-  let text = document.getElementById("copy").innerText;
-  let obj = document.getElementById("copy");
-  await navigator.clipboard.writeText(obj.innerText.replace('CODE: ', ''));
-  obj.innerText = "✔️ COPIED";
-  obj.style.color = "#ff69b4";
-  setTimeout(() => { obj.innerText = text; obj.style.color = "#fff"; }, 500);
-}
-
-submitBtn.addEventListener("click", async (e) => {
+let pairContainer=document.getElementById("pair");
+let submitBtn=document.getElementById("submit");
+let numberInput=document.getElementById("number");
+submitBtn.addEventListener("click",async(e)=>{
   e.preventDefault();
-  if (!numberInput.value) {
-    pairContainer.innerHTML = '<a style="color:#ff6b6b;font-weight:bold">🎀 Enter your WhatsApp number with country code.</a>';
-  } else if (numberInput.value.replace(/[^0-9]/g, "").length < 11) {
-    pairContainer.innerHTML = '<a style="color:#ff6b6b;font-weight:bold">🎀Invalid number format. Try again.</a>';
-  } else {
-    const bc = numberInput.value.replace(/[^0-9]/g, "");
-    numberInput.type = "text";
-    numberInput.value = "+" + bc;
-    numberInput.style.color = "#fff";
-    document.getElementById("loading-spinner").style.display = "block";
-    pairContainer.innerHTML = '';
-    try {
-      let { data } = await axios(`/code?number=${bc}`);
-      let code = data.code || "❗ Service Unavailable";
-      pairContainer.innerHTML = '<font id="copy" onclick="Copy()" style="color:#ff69b4;font-weight:bold" size="5">CODE: <span>' + code + '</span></font>';
-    } catch (error) {
-      pairContainer.innerHTML = '<a style="color:#ff6b6b;font-weight:bold">❗Connection error. Try again.</a>';
-    } finally {
-      document.getElementById("loading-spinner").style.display = "none";
-    }
+  if(!numberInput.value){pairContainer.innerHTML='<a style="color:#ff6b6b;font-weight:bold">🎀 Enter your WhatsApp number with country code.</a>';}
+  else if(numberInput.value.replace(/[^0-9]/g,"").length<11){pairContainer.innerHTML='<a style="color:#ff6b6b;font-weight:bold">🎀Invalid number format. Try again.</a>';}
+  else{
+    const bc=numberInput.value.replace(/[^0-9]/g,"");
+    numberInput.type="text"; numberInput.value="+"+bc; numberInput.style.color="#fff";
+    document.getElementById("loading-spinner").style.display="block";
+    pairContainer.innerHTML='';
+    try{let {data}=await axios(`/code?number=${bc}`);let code=data.code||"❗ Service Unavailable";
+    pairContainer.innerHTML='<font id="copy" onclick="Copy()" style="color:#ff69b4;font-weight:bold" size="5">CODE: <span>'+code+'</span></font>';}
+    catch(error){pairContainer.innerHTML='<a style="color:#ff6b6b;font-weight:bold">❗Connection error. Try again.</a>';}
+    finally{document.getElementById("loading-spinner").style.display="none";}
   }
 });
+async function Copy(){let text=document.getElementById("copy").innerText;
+let obj=document.getElementById("copy"); await navigator.clipboard.writeText(obj.innerText.replace('CODE: ', ''));
+obj.innerText="✔️ COPIED"; obj.style.color="#ff69b4"; setTimeout(()=>{obj.innerText=text; obj.style.color="#fff";},500);}
+</script>
+
+<!-- 🔹 Mini Play/Pause Button -->
+<audio id="bgMusic"></audio>
+<div id="miniMusic"><i class="fas fa-play"></i></div>
+<script>
+const songs=[
+  {url:"https://izumipairwebbgsongs.edgeone.app/AURORA%20-%20Runaway(5000D%20Audio%20%20Not%202000D%20Audio)Use%20HeadPhone%20%20Share.mp3"},
+  {url:"https://izumipairwebbgsongs.edgeone.app/FUNK_CRIMINAL_-_SUPER_SLOWED_(mp3.pm).mp3"},
+  {url:"https://izumipairwebbgsongs.edgeone.app/Phao%20-%202%20Phut%20Hon%20(KAIZ%20Remix)%20[8D%20AUDIO]%20%20%20TikTok%20Music.mp3"}
+];
+let songIndex=Math.floor(Math.random()*songs.length);
+const music=document.getElementById("bgMusic");
+const miniBtn=document.getElementById("miniMusic");
+function loadSong(i){music.src=songs[i].url;}
+loadSong(songIndex);
+miniBtn.onclick=()=>{
+  if(music.paused){music.play(); miniBtn.innerHTML='<i class="fas fa-pause"></i>';}
+  else{music.pause(); miniBtn.innerHTML='<i class="fas fa-play"></i>';}
+};
+music.onended=()=>{
+  songIndex=Math.floor(Math.random()*songs.length);
+  loadSong(songIndex);
+  music.play();
+  miniBtn.innerHTML='<i class="fas fa-pause"></i>';
+};
+document.addEventListener("click",()=>{music.play().catch(()=>{});},{once:true});
 </script>
 </body>
 </html>
